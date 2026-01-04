@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/project/student")
 @SpringBootApplication
 public class StudentManagementSystemApplication {
 
@@ -20,10 +19,5 @@ public class StudentManagementSystemApplication {
         System.out.println("devesh tenguriya");
 	}
 
-    @GetMapping
-   public List<Student> getStudents(){
 
-       return List.of(new Student("Devesh Tenguriya","devesh@gmail.com",LocalDate.of(2004,10,10),"Information technology"),
-               new Student("Naruto","naruto@gmail.com",LocalDate.of(2005,10,10),"Hokage"));
-   };
 }

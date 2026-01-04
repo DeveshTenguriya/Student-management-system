@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Student")
 public class Student {
@@ -28,6 +30,10 @@ public class Student {
     private String email;
     private LocalDate birthDate;
     private String department;
+
+
+    @ManyToMany
+    private Set<Course> courses = new HashSet<>();
 
     public Student() {
     }

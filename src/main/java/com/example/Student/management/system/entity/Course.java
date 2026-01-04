@@ -1,12 +1,20 @@
 package com.example.Student.management.system.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "Courses")
 public class Course {
 
     @Id
+    @SequenceGenerator(
+            name = "Course-sequence",
+            sequenceName = "Course-sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "Course-sequence"
+    )
     private long Course_id;
     private String courseName;
     private int Credits;
