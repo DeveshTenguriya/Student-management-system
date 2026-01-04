@@ -1,6 +1,8 @@
 package com.example.Student.management.system.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,6 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "Student")
+@Table(
+        name = "Student",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email")
+        }
+)
 public class Student {
 
     @Id
@@ -21,18 +29,34 @@ public class Student {
             generator = "Student_sequence"
     )
     @Column(
-            name = "id",
+            name = "StudentID",
             unique = true,
             nullable = false
     )
     private long Student_id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Email(message = "Email should be valid")
+    @NotNull(message = "Email cannot be null")
     private String email;
+
+    @Column(name = "birthdate", nullable = false)
     private LocalDate birthDate;
+
+    @Column(name = "department", nullable = false)
     private String department;
 
 
+    //many-to-many relation with course entity and this is the Owning side
     @ManyToMany
+    @JoinTable(
+            name = "",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+
+    )
     private Set<Course> courses = new HashSet<>();
 
     public Student() {
