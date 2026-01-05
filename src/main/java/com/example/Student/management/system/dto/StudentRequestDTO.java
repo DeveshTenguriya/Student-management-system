@@ -25,4 +25,9 @@ public class StudentRequestDTO {
     @NotBlank(message = "Department is required")
     private String department;
 
+//    What this DTO is for
+//    Used in POST /students
+//    Used in PUT /students/{id}
+//    Represents input from client
+
 }

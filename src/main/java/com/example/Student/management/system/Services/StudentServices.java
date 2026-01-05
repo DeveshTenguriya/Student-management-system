@@ -28,22 +28,25 @@ public class StudentServices {
         this.modelMapper = modelMapper;
     }
 
+    //this service is used to get the student when get api hit
      public List<Student> getStudent(){
        return studentRepository.findAll();
    }
 
 
+   // this service is used to create the student when post api hit
    public StudentResponseDTO CreateStudent(StudentRequestDTO dto){
 
-        Student student= modelMapper.map(dto,Student.class);// DTO → Entity(Entity field name must match exactly with DTO field)
+        Student student= modelMapper.map(dto,Student.class);// DTO → Entity(Student Entity field name must match exactly with DTO field)
 
-        Student saveStudent = studentRepository.save(student);// Save to DB
+        Student saveStudent=  studentRepository.save(student);// Save to DB
 
-        StudentResponseDTO response = modelMapper.map(saveStudent, StudentResponseDTO.class);// Entity → Response DTO(name in studentRequestDTO and entity must match exactly with studentResponseDTO field)
+        StudentResponseDTO response= modelMapper.map(saveStudent,StudentResponseDTO.class);// Entity → Response DTO
 
         response.setCourses(List.of());
 
         return response;
+
    }
 
 }

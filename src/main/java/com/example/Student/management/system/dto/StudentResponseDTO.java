@@ -17,5 +17,9 @@ public class StudentResponseDTO {
     private String department;
     private List<String> Courses;
 
+//    What this DTO is for
+//    Used in GET /students
+//    Used as response of POST /students
+//    Safe output format
 
 }
