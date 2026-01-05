@@ -2,12 +2,13 @@ package com.example.Student.management.system.Controller;
 
 
 import com.example.Student.management.system.Services.StudentServices;
+import com.example.Student.management.system.dto.StudentRequestDTO;
+import com.example.Student.management.system.dto.StudentResponseDTO;
 import com.example.Student.management.system.entity.Student;
+import jakarta.validation.Valid;
 import org.hibernate.boot.internal.Abstract;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,5 +28,12 @@ public class StudentController {
     public List<Student> getStudents(){
         return  studentServices.getStudent();
     };
+
+    @PostMapping
+    public StudentResponseDTO createStudent(@RequestBody @Valid StudentRequestDTO dto){
+        return  studentServices.CreateStudent(dto);
+
+    }
+
 
 }
