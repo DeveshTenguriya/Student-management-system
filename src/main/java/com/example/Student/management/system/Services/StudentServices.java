@@ -5,10 +5,15 @@ import com.example.Student.management.system.Repository.CourseRepository;
 import com.example.Student.management.system.Repository.StudentRepository;
 import com.example.Student.management.system.dto.StudentRequestDTO;
 import com.example.Student.management.system.dto.StudentResponseDTO;
+import com.example.Student.management.system.entity.Course;
 import com.example.Student.management.system.entity.Student;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -47,6 +52,14 @@ public class StudentServices {
 
         return response;
 
+   }
+
+   @Transactional
+   public void EnrollStudentInCourse(Long Student_id,Long Course_id){
+        Student student = studentRepository.findById(Student_id).orElseThrow(() -> new ResponseStatusException( HttpStatus.NOT_FOUND,"Student not found"));
+       Course course= courseRepository.findById(Course_id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));
+
+       student.getCourses().add(course);
    }
 
 }

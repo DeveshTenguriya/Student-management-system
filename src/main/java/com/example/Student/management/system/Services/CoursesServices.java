@@ -21,13 +21,11 @@ public class CoursesServices {
 
 
     public List<Course> getCourse(){
-        return List.of(new Course(1L,
-                        "Computer",
-                        4),
+        return courseRepository.findAll();
+    }
 
-                new Course(2L,
-                        "JAVA",
-                        4));
+    public Course CreateCourse(Course course){
+       return courseRepository.save(course);
     }
 
 }

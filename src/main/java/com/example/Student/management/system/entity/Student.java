@@ -49,6 +49,8 @@ public class Student {
     private String department;
 
 
+
+
     //many-to-many relation with course entity and this is the Owning side
     @ManyToMany
     @JoinTable(
@@ -58,6 +60,14 @@ public class Student {
 
     )
     private Set<Course> courses = new HashSet<>();
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
 
     public Student() {
     }

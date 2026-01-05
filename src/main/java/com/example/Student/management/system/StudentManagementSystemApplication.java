@@ -21,3 +21,10 @@ public class StudentManagementSystemApplication {
 
 
 }
+
+//{
+//        "name": "vansh Tenguriya",
+//        "email": "vansh@gmail.com",
+//        "birthDate": "2004-11-10",
+//        "department": "Information Technology"
+//        }

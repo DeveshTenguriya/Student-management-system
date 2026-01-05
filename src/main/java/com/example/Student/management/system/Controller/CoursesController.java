@@ -5,9 +5,7 @@ import com.example.Student.management.system.Services.CoursesServices;
 import com.example.Student.management.system.entity.Course;
 import com.example.Student.management.system.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,5 +26,10 @@ public class CoursesController {
     public List<Course> getCourses(){
         return  coursesServices.getCourse();
     };
+
+    @PostMapping
+    public Course createCourse(@RequestBody Course course){
+        return coursesServices.CreateCourse(course);
+    }
 
 }

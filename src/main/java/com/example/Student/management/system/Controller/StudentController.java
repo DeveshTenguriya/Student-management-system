@@ -35,5 +35,10 @@ public class StudentController {
 
     }
 
+    @PostMapping(path = {"/{Student_id}/course/{Course_id}"})
+    public void enrollStudent(@PathVariable Long Student_id,@PathVariable Long Course_id){
+         studentServices.EnrollStudentInCourse(Student_id, Course_id);
+    }
+
 
 }
