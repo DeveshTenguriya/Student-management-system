@@ -29,15 +29,29 @@ public class StudentController {
         return  studentServices.getStudent();
     };
 
+
+    // this method is to get the student by its id
+    @GetMapping(path = {"/{Student_id}"})
+    public Student getStudentById(@PathVariable Long Student_id){
+       return studentServices.GetStudentByID(Student_id);
+    }
+
+    // this method is for creating the student
     @PostMapping
     public StudentResponseDTO createStudent(@RequestBody @Valid StudentRequestDTO dto){
         return  studentServices.CreateStudent(dto);
 
     }
 
+    //this is for the enrollment of student in the course
     @PostMapping(path = {"/{Student_id}/course/{Course_id}"})
     public void enrollStudent(@PathVariable Long Student_id,@PathVariable Long Course_id){
          studentServices.EnrollStudentInCourse(Student_id, Course_id);
+    }
+
+    @PutMapping(path = {"/{Student_id}"})
+    public StudentResponseDTO updateStudent(@PathVariable Long Student_id,@RequestBody @Valid StudentRequestDTO dto){
+       return studentServices.UpdateStudent(Student_id,dto);
     }
 
 
