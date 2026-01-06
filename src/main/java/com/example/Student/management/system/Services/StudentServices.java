@@ -63,6 +63,7 @@ public class StudentServices {
 
    }
 
+   // this service is to update the student
    @Transactional
    public StudentResponseDTO UpdateStudent(Long Student_id,StudentRequestDTO dto){
         Student student= studentRepository
@@ -114,6 +115,17 @@ public class StudentServices {
                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));
 
        student.getCourses().add(course);
+   }
+
+
+   public void DeleteStudent(Long Student_id){
+        Student student = studentRepository.findById(Student_id)
+                .orElseThrow(()-> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Student not found"));
+
+        student.getCourses().clear();
+        studentRepository.delete(student);
    }
 
 }

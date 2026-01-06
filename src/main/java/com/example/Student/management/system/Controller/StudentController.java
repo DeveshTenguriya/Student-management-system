@@ -49,10 +49,15 @@ public class StudentController {
          studentServices.EnrollStudentInCourse(Student_id, Course_id);
     }
 
+    //this mapping is to update the student
     @PutMapping(path = {"/{Student_id}"})
     public StudentResponseDTO updateStudent(@PathVariable Long Student_id,@RequestBody @Valid StudentRequestDTO dto){
        return studentServices.UpdateStudent(Student_id,dto);
     }
 
+    @DeleteMapping(path = {"/{Student_id}"})
+    public void deleteStudent(@PathVariable Long Student_id){
+        studentServices.DeleteStudent(Student_id);
+    }
 
 }
