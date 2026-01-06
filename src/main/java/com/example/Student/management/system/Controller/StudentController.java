@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping(path = "/project/student")
 public class StudentController {
+
+    private static final Logger log =
+            LoggerFactory.getLogger(StudentController.class);
+
 
     private final StudentServices  studentServices;
 
@@ -26,6 +32,9 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getStudents(){
+
+        log.info("GET /students request received");
+
         return  studentServices.getStudent();
     };
 
@@ -33,12 +42,18 @@ public class StudentController {
     // this method is to get the student by its id
     @GetMapping(path = {"/{Student_id}"})
     public Student getStudentById(@PathVariable Long Student_id){
+
+        log.info("GET /students/{} request received", Student_id);
+
        return studentServices.GetStudentByID(Student_id);
     }
 
     // this method is for creating the student
     @PostMapping
     public StudentResponseDTO createStudent(@RequestBody @Valid StudentRequestDTO dto){
+
+        log.info("POST /students request received");
+
         return  studentServices.CreateStudent(dto);
 
     }
@@ -46,17 +61,30 @@ public class StudentController {
     //this is for the enrollment of student in the course
     @PostMapping(path = {"/{Student_id}/course/{Course_id}"})
     public void enrollStudent(@PathVariable Long Student_id,@PathVariable Long Course_id){
+
+        log.info("POST /enrollments request received [studentId={}, courseId={}]",
+                Student_id, Course_id);
+
          studentServices.EnrollStudentInCourse(Student_id, Course_id);
+
+        log.info("Enrollment request processed successfully [studentId={}, courseId={}]",
+                Student_id, Course_id);
     }
 
     //this mapping is to update the student
     @PutMapping(path = {"/{Student_id}"})
     public StudentResponseDTO updateStudent(@PathVariable Long Student_id,@RequestBody @Valid StudentRequestDTO dto){
+
+        log.info("PUT /students/{} request received", Student_id);
+
        return studentServices.UpdateStudent(Student_id,dto);
     }
 
     @DeleteMapping(path = {"/{Student_id}"})
     public void deleteStudent(@PathVariable Long Student_id){
+
+        log.info("DELETE /students/{} request received", Student_id);
+
         studentServices.DeleteStudent(Student_id);
     }
 

@@ -20,9 +20,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class StudentServices {
+
+    private static final Logger log =
+            LoggerFactory.getLogger(StudentServices.class);
 
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
@@ -51,6 +56,8 @@ public class StudentServices {
    // this service is used to create the student when post api hit
    public StudentResponseDTO CreateStudent(StudentRequestDTO dto){
 
+       log.info("Creating student with email: {}", dto.getEmail());
+
         Student student= modelMapper.map(dto,Student.class);// DTO → Entity(Student Entity field name must match exactly with DTO field)
 
         Student saveStudent=  studentRepository.save(student);// Save to DB
@@ -59,6 +66,8 @@ public class StudentServices {
 
         response.setCourses(List.of());
 
+       log.info("Student created with ID: {}", saveStudent.getStudent_id());
+
         return response;
 
    }
@@ -66,6 +75,10 @@ public class StudentServices {
    // this service is to update the student
    @Transactional
    public StudentResponseDTO UpdateStudent(Long Student_id,StudentRequestDTO dto){
+
+       log.info("Updating student with ID: {}", Student_id);
+
+
         Student student= studentRepository
                 .findById(Student_id)
                 .orElseThrow(()-> new ResourceNotFoundException
@@ -101,6 +114,8 @@ public class StudentServices {
                 !Objects.equals(student.getBirthDate(),dto.getBirthDate())){
             student.setBirthDate(dto.getBirthDate());
         }
+
+       log.info("Student updated successfully with ID: {}", Student_id);
 
         return modelMapper.map(student,StudentResponseDTO.class);
 
