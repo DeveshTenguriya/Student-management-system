@@ -7,6 +7,7 @@ import com.example.Student.management.system.dto.StudentRequestDTO;
 import com.example.Student.management.system.dto.StudentResponseDTO;
 import com.example.Student.management.system.entity.Course;
 import com.example.Student.management.system.entity.Student;
+import com.example.Student.management.system.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,7 @@ public class StudentServices {
    // this service is used to get the student by its id;
    public Student GetStudentByID(Long Student_id){
        return studentRepository.findById(Student_id).
-               orElseThrow(()-> new ResponseStatusException(
-                       HttpStatus.NOT_FOUND,
+               orElseThrow(()-> new ResourceNotFoundException(
                        "Student with"+Student_id+"Does not exist"));
    }
 
@@ -68,8 +68,8 @@ public class StudentServices {
    public StudentResponseDTO UpdateStudent(Long Student_id,StudentRequestDTO dto){
         Student student= studentRepository
                 .findById(Student_id)
-                .orElseThrow(()-> new ResponseStatusException
-                        (HttpStatus.NOT_FOUND,"Student with this ID"+Student_id+"does not exist"));
+                .orElseThrow(()-> new ResourceNotFoundException
+                        ("Student with this ID"+Student_id+"does not exist"));
 
         if (dto.getName()!=null &&
                 !dto.getName().isEmpty() &&
@@ -110,9 +110,9 @@ public class StudentServices {
    @Transactional
    public void EnrollStudentInCourse(Long Student_id,Long Course_id){
         Student student = studentRepository.findById(Student_id)
-                .orElseThrow(() -> new ResponseStatusException( HttpStatus.NOT_FOUND,"Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
        Course course= courseRepository.findById(Course_id)
-               .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found"));
+               .orElseThrow(()-> new ResourceNotFoundException("Course not found"));
 
        student.getCourses().add(course);
    }
@@ -120,8 +120,7 @@ public class StudentServices {
 
    public void DeleteStudent(Long Student_id){
         Student student = studentRepository.findById(Student_id)
-                .orElseThrow(()-> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
+                .orElseThrow(()-> new ResourceNotFoundException(
                         "Student not found"));
 
         student.getCourses().clear();
