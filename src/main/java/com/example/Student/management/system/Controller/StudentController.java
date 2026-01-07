@@ -8,6 +8,7 @@ import com.example.Student.management.system.entity.Student;
 import jakarta.validation.Valid;
 import org.hibernate.boot.internal.Abstract;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -29,14 +30,16 @@ public class StudentController {
     public StudentController(StudentServices studentServices) {
         this.studentServices = studentServices;
     }
+        //log.info("GET /students request received");
 
     @GetMapping
-    public List<Student> getStudents(){
+    public Page<StudentResponseDTO> getStudents(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "name") String sortBy) {
 
-        log.info("GET /students request received");
-
-        return  studentServices.getStudent();
-    };
+        return studentServices.getStudent(page, size, sortBy);
+    }
 
 
     // this method is to get the student by its id

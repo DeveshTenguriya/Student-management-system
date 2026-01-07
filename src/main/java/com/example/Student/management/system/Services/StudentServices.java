@@ -15,6 +15,11 @@ import org.springframework.boot.context.config.ConfigDataResourceNotFoundExcepti
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -41,9 +46,13 @@ public class StudentServices {
     }
 
     //this service is used to get the student when get api hit
-     public List<Student> getStudent(){
-       return studentRepository.findAll();
-   }
+    public Page<StudentResponseDTO> getStudent(int page, int size, String sortBy) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        return studentRepository.findAll(pageable)
+                .map(student -> modelMapper.map(student, StudentResponseDTO.class));
+    }
 
    // this service is used to get the student by its id;
    public Student GetStudentByID(Long Student_id){
