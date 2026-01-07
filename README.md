@@ -133,10 +133,6 @@ JWT Authentication & Authorization
 
 Role-based access (Admin / User)
 
-Pagination & Sorting
-
-Global Exception Handling
-
 Swagger (OpenAPI) documentation
 
 Dockerization
@@ -158,5 +154,5 @@ Devesh Tenguriya
 Backend Developer | Java | Spring Boot
 
 📧 Email: deveshtenguriya8220@gmail.com
-🔗 GitHub: (add your GitHub link here)
-🔗 LinkedIn: (optional but recommended)
+🔗 GitHub: https://github.com/DeveshTenguriya
+🔗 LinkedIn: https://www.linkedin.com/in/devesh-tenguriya-92a976356/
