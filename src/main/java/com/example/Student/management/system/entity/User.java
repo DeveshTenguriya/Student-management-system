@@ -1,15 +1,25 @@
 package com.example.Student.management.system.entity;
 
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
 
 import javax.management.relation.Role;
 
+@Entity(name = "User")
+@Table
 public class User {
 
+    @Id
+    @SequenceGenerator(name = "user_sequence"
+            , sequenceName = "user_sequence"
+            , allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE
+            , generator = "user_sequence")
     private Long UserId;
+    @Column(nullable = false, unique = true)
     private  String UserName;
+    @Column(nullable = false)
     private String Password;
 
     @Enumerated(EnumType.STRING)
