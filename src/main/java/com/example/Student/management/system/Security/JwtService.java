@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
 @Service
@@ -20,13 +21,17 @@ public class JwtService {
     @Value("${app.jwt.expiration}")
     private Long jwtExpiration;
 
+    private Key signingKey(){
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
+
     // the jwt token was generated here
     public  String generateToken(UserDetails userDetails){
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+jwtExpiration))
-                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()), SignatureAlgorithm.HS256)
+                .signWith(signingKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -34,7 +39,7 @@ public class JwtService {
     public String extractUsername(String token){
 
         return Jwts.parserBuilder()
-                .setSigningKey(jwtSecret.getBytes())
+                .setSigningKey(signingKey())
                 .build().parseClaimsJws(token)
                 .getBody()
                 .getSubject();
