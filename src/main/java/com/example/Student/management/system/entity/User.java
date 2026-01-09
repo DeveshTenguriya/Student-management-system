@@ -21,7 +21,7 @@ public class User {
     private Long UserId;
 
     @Column(nullable = false, unique = true)
-    private  String UserName;
+    private  String username;
 
     @Column(nullable = false)
     private String Password;
@@ -32,9 +32,9 @@ public class User {
     public User() {
     }
 
-    public User(Long userId, String userName, String password, Role role) {
+    public User(Long userId, String username, String password, Role role) {
         UserId = userId;
-        UserName = userName;
+        username = username;
         Password = password;
         this.role = role;
     }
@@ -47,12 +47,12 @@ public class User {
         UserId = userId;
     }
 
-    public String getUserName() {
-        return UserName;
+    public String getusername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUserName(String username) {
+        username = username;
     }
 
     public String getPassword() {

@@ -21,11 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        com.example.Student.management.system.entity.User user= userRepository.findByUsername(username)
+        com.example.Student.management.system.entity.User user= userRepository.findByusername(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUserName())
+                .withUsername(user.getusername())
                 .password(user.getPassword())
                 .build();
     }
