@@ -2,9 +2,11 @@ package com.example.Student.management.system.entity;
 
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
+
+import com.example.Student.management.system.entity.Role;
+
+
 
 @Entity(name = "User")
 @Table
