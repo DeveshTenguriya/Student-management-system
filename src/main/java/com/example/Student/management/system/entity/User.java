@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 
 
 import com.example.Student.management.system.entity.Role;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -13,6 +15,8 @@ import lombok.Setter;
 @Table
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -32,13 +36,5 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User() {
-    }
 
-    public User(Long userId, String username, String password, Role role) {
-        UserId = userId;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
 }
