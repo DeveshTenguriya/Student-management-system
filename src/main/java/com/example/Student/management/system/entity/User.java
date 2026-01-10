@@ -27,7 +27,7 @@ public class User {
     private  String username;
 
     @Column(nullable = false)
-    private String Password;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -38,7 +38,7 @@ public class User {
     public User(Long userId, String username, String password, Role role) {
         UserId = userId;
         this.username = username;
-        Password = password;
+        this.password = password;
         this.role = role;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.Student.management.system.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,9 @@ import lombok.Setter;
 public class UserLoginRequest {
 
     @NotNull
+    @NotBlank(message = "username is required")
     private String username;
     @NotNull
-    private String Password;
+    @NotBlank(message = "password id required")
+    private String password;
 }
