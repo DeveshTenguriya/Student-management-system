@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/project/auth")
+@RequestMapping(path = "/auth")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -31,10 +31,7 @@ public class AuthController {
         this.userAuthService = userAuthService;
     }
 
-
-
-
-    @PostMapping(path = {"/user-login"})
+    @PostMapping(path = {"/login"})
     public String login(@RequestBody @Valid UserLoginRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -49,7 +46,7 @@ public class AuthController {
     }
 
 
-    @PostMapping(path = "/user-register")
+    @PostMapping(path = "/register")
     public ResponseEntity<String> register(@RequestBody @Valid UserRegisterRequest request){
         userAuthService.register(request);
        return ResponseEntity.ok("User registered successfully");
