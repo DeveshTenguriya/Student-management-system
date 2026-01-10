@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 // this class connect the user entity and userDetail parameter in the token generation method
+//this class checks the user in the DB and then pass that user in the userdetail and this userdetail was then passed in the generatetoken method in the jwtservice
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -25,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getusername())
+                .withUsername(user.getUsername())
                 .password(user.getPassword())
                 .build();
     }
