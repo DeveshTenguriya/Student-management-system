@@ -5,11 +5,14 @@ import jakarta.persistence.*;
 
 
 import com.example.Student.management.system.entity.Role;
-
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity(name = "User")
 @Table
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -34,40 +37,8 @@ public class User {
 
     public User(Long userId, String username, String password, Role role) {
         UserId = userId;
-        username = username;
+        this.username = username;
         Password = password;
-        this.role = role;
-    }
-
-    public Long getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(Long userId) {
-        UserId = userId;
-    }
-
-    public String getusername() {
-        return username;
-    }
-
-    public void setUserName(String username) {
-        username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
         this.role = role;
     }
 }
