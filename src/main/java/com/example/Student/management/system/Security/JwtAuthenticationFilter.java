@@ -15,6 +15,8 @@ import java.io.IOException;
 
 
 @Component
+//This class extracts the username from the JWT token, loads the user from the database,
+// and tells Spring Security that this user is authenticated for this request.
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private UserRepository userRepository;
@@ -26,6 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    //This method doFilterInternal runs for EVERY request that comes to your backend
     protected void doFilterInternal(HttpServletRequest request
             , HttpServletResponse response
             , FilterChain filterChain) throws ServletException, IOException {

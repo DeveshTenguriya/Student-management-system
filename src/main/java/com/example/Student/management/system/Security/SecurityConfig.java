@@ -18,6 +18,13 @@ public class SecurityConfig {
         this.jwtFilter = jwtFilter;
     }
 
+    //SecurityFilterChain Bean: Defines how requests are secured and Replaces old WebSecurityConfigurerAdapter (deprecated)
+//    It decides:
+//    Who can access which API
+//    Which APIs are public
+//    Which APIs need login
+//    How authentication works (JWT, session, etc.)
+//    Which security checks run before your controller
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
