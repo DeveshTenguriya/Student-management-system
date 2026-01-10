@@ -1,7 +1,12 @@
 package com.example.Student.management.system.Controller;
 
 import com.example.Student.management.system.Security.JwtService;
+import com.example.Student.management.system.Services.UserAuthService;
+import com.example.Student.management.system.dto.UserAuthResponse;
 import com.example.Student.management.system.dto.UserLoginRequest;
+import com.example.Student.management.system.dto.UserRegisterRequest;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,14 +23,19 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserAuthService userAuthService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtService jwtService, UserAuthService userAuthService) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.userAuthService = userAuthService;
     }
 
+
+
+
     @PostMapping(path = {"/user-login"})
-    public String login(@RequestBody UserLoginRequest request){
+    public String login(@RequestBody @Valid UserLoginRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(), request.getUsername()));
@@ -39,5 +49,11 @@ public class AuthController {
     }
 
 
+    @PostMapping(path = "/user-register")
+    public ResponseEntity<String> register(@RequestBody @Valid UserRegisterRequest request){
+        userAuthService.register(request);
+       return ResponseEntity.ok("User registered successfully");
+
+    }
 
 }
