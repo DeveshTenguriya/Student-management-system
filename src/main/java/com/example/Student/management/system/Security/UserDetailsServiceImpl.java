@@ -25,9 +25,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         com.example.Student.management.system.entity.User user= userRepository.findByusername(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
+
+        // Default role if null
+        String roleName = (user.getRole() != null) ? user.getRole().name() : "USER";
+
+        // Use Spring Security builder
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUsername())
                 .password(user.getPassword())
+                .roles(roleName) // Spring automatically adds ROLE_ prefix
                 .build();
     }
 }
