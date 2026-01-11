@@ -28,3 +28,5 @@ public class StudentManagementSystemApplication {
 //        "birthDate": "2004-11-10",
 //        "department": "Information Technology"
 //        }
+
+//	eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHb2t1IiwiaWF0IjoxNzY4MTYwMjYyLCJleHAiOjE3NjgxNjExNjJ9.9oiHn7NYQOa04IxKRHymHI_sVHBq5Fs43rD-qA3UDEc
