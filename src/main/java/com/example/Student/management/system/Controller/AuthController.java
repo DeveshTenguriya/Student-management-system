@@ -32,22 +32,24 @@ public class AuthController {
     }
 
     @PostMapping(path = {"/login"})
-    public String login(@RequestBody @Valid UserLoginRequest request){
+    public ResponseEntity<UserAuthResponse> login(@RequestBody @Valid UserLoginRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getUsername(), request.getUsername()));
+                        request.getUsername(), request.getPassword()));
 
-        UserDetails userDetails= new
-                org.springframework.security.core.userdetails.User(
+                 UserDetails userDetails= new
+                  org.springframework.security.core.userdetails.User(
                         request.getUsername(), "", List.of());
 
-        return jwtService.generateToken(userDetails);
+        String token= jwtService.generateToken(userDetails);
 
+        return ResponseEntity.ok(new UserAuthResponse(token));
     }
 
 
     @PostMapping(path = "/register")
     public ResponseEntity<UserAuthResponse> register(@RequestBody @Valid UserRegisterRequest request){
+
       String token = userAuthService.register(request);
        return ResponseEntity.ok(new UserAuthResponse(token));
 
