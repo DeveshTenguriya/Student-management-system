@@ -11,21 +11,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Entity(name = "User")
-@Table
+@Entity
+@Table(name = "Users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
-    @Id
-    @SequenceGenerator(name = "user_sequence"
-            , sequenceName = "user_sequence"
-            , allocationSize = 50)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "user_sequence")
-    private Long UserId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     private  String username;
