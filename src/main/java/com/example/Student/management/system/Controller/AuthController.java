@@ -47,9 +47,9 @@ public class AuthController {
 
 
     @PostMapping(path = "/register")
-    public ResponseEntity<String> register(@RequestBody @Valid UserRegisterRequest request){
-        userAuthService.register(request);
-       return ResponseEntity.ok("User registered successfully");
+    public ResponseEntity<UserAuthResponse> register(@RequestBody @Valid UserRegisterRequest request){
+      String token = userAuthService.register(request);
+       return ResponseEntity.ok(new UserAuthResponse(token));
 
     }
 
