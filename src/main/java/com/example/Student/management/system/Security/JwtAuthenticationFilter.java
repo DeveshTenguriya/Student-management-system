@@ -20,12 +20,17 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private UserRepository userRepository;
+    private final JwtService jwtService;
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
-    public JwtAuthenticationFilter(UserRepository userRepository, UserDetailsServiceImpl userDetailsServiceImpl) {
+    public JwtAuthenticationFilter(JwtService jwtService, UserRepository userRepository, UserDetailsServiceImpl userDetailsServiceImpl) {
+        this.jwtService = jwtService;
         this.userRepository = userRepository;
         this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
+
+
+
 
     @Override
     //This method doFilterInternal runs for EVERY request that comes to your backend
@@ -33,11 +38,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             , HttpServletResponse response
             , FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getServletPath();
+
+        // 🔴 CRITICAL: Skip auth endpoints
+        if (path.startsWith("/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader= request.getHeader("Authorization");
 
         if (authHeader !=null && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
-            String username= JwtService.extractUsername(jwt);
+            String username= jwtService.extractUsername(jwt);
 
             UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(username);
 
