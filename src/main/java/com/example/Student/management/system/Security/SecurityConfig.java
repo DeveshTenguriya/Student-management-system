@@ -30,6 +30,7 @@ public class SecurityConfig {
 //    Which APIs need login
 //    How authentication works (JWT, session, etc.)
 //    Which security checks run before your controller
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
